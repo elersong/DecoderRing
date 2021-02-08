@@ -19,6 +19,7 @@ const substitutionModule = (function () {
       }
     });
 
+    // If the letters object has any false values, there's one or more duplicates
     return !Object.values(letters).includes(false);
   }
 
