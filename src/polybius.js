@@ -29,7 +29,6 @@ const polybiusModule = (function () {
 
   function lookupNumbers(pair) {
     if (pair == ' ') return ' ';
-  //  if (pair == ['4','2']) return ['j','k'][Math.floor(Math.random()*2)];
 
     let [col, row] = pair.map(el => Number(el))
     return codex[row][col];
@@ -69,7 +68,6 @@ const polybiusModule = (function () {
       } while (inputSplit.length > 0)
 
       // lookup corresponding letters and add to the string
-      //console.log(letterGroups)
       letterGroups.forEach(el => {
         returnString += lookupNumbers(el);
       })
