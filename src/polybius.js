@@ -20,8 +20,8 @@ const polybiusModule = (function () {
     let newVal = [];
     codex.forEach((row, idx) => {
       if (row.includes(char)) {
-        newVal.push(row.findIndex(el => el == char));
-        newVal.push(idx);
+        newVal.push(row.findIndex(el => el == char)); // search row for column index
+        newVal.push(idx); // row index is already given
       }
     })
     return newVal.map(el => String(el)).join('');
@@ -29,7 +29,7 @@ const polybiusModule = (function () {
 
   function lookupNumbers(pair) {
     if (pair == ' ') return ' ';
-    if (pair == ['4','2']) return ['j','k'][Math.floor(Math.random()*2)];
+  //  if (pair == ['4','2']) return ['j','k'][Math.floor(Math.random()*2)];
 
     let [col, row] = pair.map(el => Number(el))
     return codex[row][col];
@@ -69,7 +69,7 @@ const polybiusModule = (function () {
       } while (inputSplit.length > 0)
 
       // lookup corresponding letters and add to the string
-      console.log(letterGroups)
+      //console.log(letterGroups)
       letterGroups.forEach(el => {
         returnString += lookupNumbers(el);
       })
