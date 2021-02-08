@@ -6,7 +6,7 @@
 const caesarModule = (function () {
   // this is the master index for coding and decoding
   const alpha = "abcdefghijklmnopqrstuvwxyz".split("");
-  const codex = alpha.map((el, idx) => { return [el, idx] } );
+  const codex = alpha.map((char, idx) => { return [char, idx] } );
 
   function caesar(input, shift, encode = true) {
     // short circuit in unfavorable conditions
@@ -20,6 +20,7 @@ const caesarModule = (function () {
 
     let result = input.map( (char, idx) => {
       // is this a letter or a non-letter character?
+      // A negative index means it's not in the codex array.
       if (alpha.indexOf(char) >= 0) {
         // look up current letter index, then add the shift amount to it
         let letterIndex = alpha.indexOf(char) + shift;
