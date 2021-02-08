@@ -4,10 +4,78 @@
 // of the anonymous function on line 6
 
 const polybiusModule = (function () {
-  // you can add any code you want within this function scope
+  // master index for encoding
+  const codex = [[],
+    [0,'a','b','c','d','e'],
+    [0,'f', 'g', 'h','ij','k'],
+    [0,'l','m','n','o','p'],
+    [0,'q','r','s','t','u'],
+    [0,'v','w','x','y','z']
+  ];
+
+  function lookupLetters(char) {
+    if (char == ' ') return char;
+    if (['i','j'].includes(char)) return '42';
+    // format [col, row]
+    let newVal = [];
+    codex.forEach((row, idx) => {
+      if (row.includes(char)) {
+        newVal.push(row.findIndex(el => el == char));
+        newVal.push(idx);
+      }
+    })
+    return newVal.map(el => String(el)).join('');
+  }
+
+  function lookupNumbers(pair) {
+    if (pair == ' ') return ' ';
+    if (pair == ['4','2']) return ['j','k'][Math.floor(Math.random()*2)];
+
+    let [col, row] = pair.map(el => Number(el))
+    return codex[row][col];
+  }
+
 
   function polybius(input, encode = true) {
-    // your solution code here
+    // standardize and break into chars
+    inputSplit = input.toLowerCase().split('');
+    let returnString = "";
+
+    if (encode) {
+      // translate into mathspeak
+
+      inputSplit.forEach(char => {
+        // get the numbers
+        returnString += lookupLetters(char);
+      })
+      return returnString
+
+    } else {
+      // short circuit if odd number of numbers
+      if (input.split(" ").join("").length % 2 != 0) return false;
+
+      // now begin to translate back into readable english
+      let letterGroups = [];
+
+      // create array that groups letter pairs and preserves spaces
+      do {
+        let el = inputSplit[0];
+        if (el != ' ') {
+          letterGroups.push(inputSplit.splice(0,2));
+        } else {
+          letterGroups.push(' ');
+          inputSplit.shift();
+        }
+      } while (inputSplit.length > 0)
+
+      // lookup corresponding letters and add to the string
+      console.log(letterGroups)
+      letterGroups.forEach(el => {
+        returnString += lookupNumbers(el);
+      })
+
+      return returnString;
+    }
   }
 
   return {
