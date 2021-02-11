@@ -48,23 +48,21 @@ const substitutionModule = (function () {
         }
       });
 
-      return returnString;
-
     } else {
       // begin decode
       
       inputSplit.forEach(el => {
         if (codex.includes(el)) {
-          // lookup the cypher char and add it
+          // lookup the deciphered char and add it
           returnString += alpha[codex.indexOf(el)];
         } else {
           // retain any non alphabet characters
           returnString += el;
         }
       });
-
-      return returnString;
     }
+
+    return returnString;
   }
 
   return {
