@@ -1,7 +1,9 @@
-// Please refrain from tampering with the setup code provided here,
-// as the index.html and test files rely on this setup to work properly.
-// Only add code (e.g., helper methods, variables, etc.) within the scope
-// of the anonymous function on line 6
+// I'm aware that creating my own codex is less efficient than using the unicode
+// value for the characters, but I thought it would be easier to read over by
+// having a closed reference object in the module. 
+// 
+// That works until line 31, where the readability breaks down, but by then,
+// I'm returning a final value, so it doesn't seem as necessary.
 
 const caesarModule = (function () {
   // this is the master index for coding and decoding
@@ -18,18 +20,16 @@ const caesarModule = (function () {
     // split the input into individual chars after standardizing
     input = input.toLowerCase().split("");
 
-    let result = input.map( (char, idx) => {
+    let result = input.map( char => {
       // is this a letter or a non-letter character?
       // A negative index means it's not in the codex array.
       if (alpha.indexOf(char) >= 0) {
         // look up current letter index, then add the shift amount to it
         let letterIndex = alpha.indexOf(char) + shift;
-        if (letterIndex > 25) {
-          letterIndex = (letterIndex % 25)-1;
-        }
-        if (letterIndex < 0) {
-          letterIndex += 26;
-        }
+
+        if (letterIndex > 25) letterIndex = letterIndex % 26;
+        if (letterIndex < 0 ) letterIndex += 26;
+
         // return the letter matching the new shifted letter index
         return codex.find(pair => pair[1] == letterIndex)[0]
       }
